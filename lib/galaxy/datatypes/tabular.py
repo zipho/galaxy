@@ -1161,3 +1161,130 @@ class ConnectivityTable(Tabular):
         ck_data_body = re.sub('[ ]+', '\t', ck_data_body)
 
         return dumps({'ck_data': util.unicodify(ck_data_header + "\n" + ck_data_body), 'ck_index': ck_index + 1})
+
+
+@build_sniff_from_prefix        
+class Bim( Tabular ):
+    """Tab delimited data in bim format"""
+    file_ext = "bim"
+ 
+    MetadataElement( name="columns", default=3, desc="Number of columns", readonly=True )
+ 
+ 
+    def __init__ (self, **kwd):
+        """Initialize bim datatype"""
+        Tabular. __init__ (self, **kwd) 
+ 
+    def init_meta( self, dataset, copy_from=None ):
+        Tabular.init_meta( self, dataset, copy_from=copy_from )
+        if elems_len == 8:
+            try:
+                map( int, [hdr[6], hdr[7]] )
+                proceed = True
+            except:
+                pass
+ 
+ 
+    def sniff( self, filename ):
+        headers = get_headers( filename, '\t' )   
+        try:
+            if len(headers) < 2:
+                return False
+            for hdr in headers:
+                if len( hdr ) > 1 and hdr[0] and not hdr[0].startswith( '#' ):
+                    if len(hdr) != 8:
+                        return False
+                    try:
+                        map( int, [hdr[6], hdr[7]] )
+                    except:
+                        return False
+                # Do other necessary checking here...
+        except:
+            return False
+        # If we haven't yet returned False, then...
+        return True
+
+@build_sniff_from_prefix        
+class Bim( Tabular ):
+    """Tab delimited data in bim format"""
+    file_ext = "bim"
+ 
+    MetadataElement( name="columns", default=3, desc="Number of columns", readonly=True )
+ 
+ 
+    def __init__ (self, **kwd):
+        """Initialize bim datatype"""
+        Tabular. __init__ (self, **kwd) 
+ 
+    def init_meta( self, dataset, copy_from=None ):
+        Tabular.init_meta( self, dataset, copy_from=copy_from )
+        # print dataset
+        # if elems_len == 8:
+        #     try:
+        #         map( int, [hdr[6], hdr[7]] )
+        #         proceed = True
+        #     except:
+        #         pass
+ 
+ 
+    def sniff( self, filename ):
+        headers = get_headers( filename, '\t' )   
+        try:
+            if len(headers) < 2:
+                return False
+            for hdr in headers:
+                if len( hdr ) > 1 and hdr[0] and not hdr[0].startswith( '#' ):
+                    if len(hdr) != 8:
+                        return False
+                    try:
+                        map( int, [hdr[6], hdr[7]] )
+                    except:
+                        return False
+                # Do other necessary checking here...
+        except:
+            return False
+        # If we haven't yet returned False, then...
+        return True
+
+
+@build_sniff_from_prefix    
+class Fam( Tabular ):
+    """Tab delimited data in bim format"""
+    file_ext = "fam"
+
+    MetadataElement( name="columns", default=3, desc="Number of columns", readonly=True )
+
+
+    def __init__ (self, **kwd):
+        """Initialize bim datatype"""
+        Tabular. __init__ (self, **kwd)
+
+    def init_meta( self, dataset, copy_from=None ):
+        print dataset
+        Tabular.init_meta( self, dataset, copy_from=copy_from )
+        # if elems_len(dataset) == 8:
+        #     try:
+        #         map( int, [hdr[6], hdr[7]] )
+        #         proceed = True
+        #     except:
+        #         pass
+
+
+    def sniff( self, filename ):
+        headers = get_headers( filename, '\t' )   
+        try:
+            if len(headers) < 2:
+                return False
+            for hdr in headers:
+                if len( hdr ) > 1 and hdr[0] and not hdr[0].startswith( '#' ):
+                    if len(hdr) != 8:
+                        return False
+                    try:
+                        map( int, [hdr[6], hdr[7]] )
+                    except:
+                        return False
+                # Do other necessary checking here...
+        except:
+            return False
+        # If we haven't yet returned False, then...
+        return True
